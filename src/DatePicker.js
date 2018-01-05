@@ -91,6 +91,10 @@ export default class DatePicker extends Component {
           date={this.state.startDate}
           startDate={this.state.startDate}
           endDate={this.state.endDate}
+          noBorder= {true}
+          firstDayOfWeek= {1}
+          displayFormat = {'DD/MM/YYYY'}
+          isOutsideRange={() => false} //choose any date
         />
 
         <p>{this.state.text}</p>
