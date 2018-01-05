@@ -2,6 +2,7 @@ import 'react-dates/initialize';
 import React, { Component } from 'react';
 import { DateRangePicker} from 'react-dates';
 import './style/App.css';
+import moment from 'moment';
 
 import ThemedStyleSheet from 'react-with-styles/lib/ThemedStyleSheet';
 import DefaultTheme from 'react-dates/lib/theme/DefaultTheme';
@@ -16,17 +17,17 @@ export default class DatePicker extends Component {
     this.state = {
       text: '',
       focusedInput: null,
-      startDate: null,
-      endDate: null
+      startDate: moment(),
+      endDate: moment()
     };
     this.onDatesChange = this.onDatesChange.bind(this);
     this.onFocusChange = this.onFocusChange.bind(this);
 
   }
-  componentDidMount() {
+  fetchAPIData() {
     const url = 'http://numbersapi.com/';
-    const month = '4/';
-    const day = '2/';
+    const month = `${this.state.startMonth}/`;
+    const day = `${this.state.startDay}/`;
     const dataType = 'date?json';
     const path = url+month+day+dataType;
 
@@ -40,13 +41,34 @@ export default class DatePicker extends Component {
 
   onDatesChange({ startDate, endDate }) {
     this.setState({ startDate, endDate }, () => {
-      console.log(startDate);
-      console.log(endDate);
+      if (endDate){
+        const nowe1 = this.state.startDate._d.getFullYear();
+        const nowe2 = this.state.startDate._d.getDate();
+        const nowe3 = this.state.startDate._d.getMonth()+1;
+        console.log('START full year', nowe1);
+        console.log('START date day', nowe2);
+        console.log('START month', nowe3);
+        const nowe4 = this.state.endDate._d.getFullYear();
+        const nowe5 = this.state.endDate._d.getDate();
+        const nowe6 = this.state.endDate._d.getMonth()+1;
+        console.log('END full year', nowe4);
+        console.log('END date day', nowe5);
+        console.log('END month', nowe6);
+        this.setState({
+          startDay: nowe2,
+          startMonth: nowe3,
+          startYear: nowe1,
+          endDay: nowe5,
+          endMonth: nowe6,
+          endYear: nowe4
+        }, () => this.fetchAPIData())
+      }
     });
   }
 
   onFocusChange(focusedInput) {
-    this.setState({ focusedInput });
+    this.setState({ focusedInput }, () => {
+    });
   }
 
   render() {
@@ -61,9 +83,7 @@ export default class DatePicker extends Component {
           endDate={this.state.endDate}
         />
 
-        <p>
-          {this.state.text}
-        </p>
+        <p>{this.state.text}</p>
       </div>
     );
   }
