@@ -41,7 +41,7 @@ export default class DatePicker extends Component {
 
   onDatesChange({ startDate, endDate }) {
     this.setState({ startDate, endDate }, () => {
-      if (endDate){
+      if (startDate && endDate){
         const nowe1 = this.state.startDate._d.getFullYear();
         const nowe2 = this.state.startDate._d.getDate();
         const nowe3 = this.state.startDate._d.getMonth()+1;
@@ -54,6 +54,12 @@ export default class DatePicker extends Component {
         console.log('END full year', nowe4);
         console.log('END date day', nowe5);
         console.log('END month', nowe6);
+        //Number of days between the date range
+        const a = this.state.startDate;
+        const b = this.state.endDate;
+        const equalss = b.diff(a, 'days');
+        console.log('equals', equalss);
+        //--------------------------------
         this.setState({
           startDay: nowe2,
           startMonth: nowe3,
