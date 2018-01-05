@@ -60,6 +60,10 @@ export default class DatePicker extends Component {
         const equalss = b.diff(a, 'days');
         console.log('equals', equalss);
         //--------------------------------
+        //Leap year
+        console.log('is start date a leap year?', a.isLeapYear());
+        console.log('is end date a leap year?', b.isLeapYear());
+        //---------------------------------
         this.setState({
           startDay: nowe2,
           startMonth: nowe3,
