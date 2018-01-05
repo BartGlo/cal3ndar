@@ -20,8 +20,6 @@ export default class DatePicker extends Component {
       startDate: moment(),
       endDate: moment()
     };
-    this.onDatesChange = this.onDatesChange.bind(this);
-    this.onFocusChange = this.onFocusChange.bind(this);
 
   }
   fetchAPIData() {
@@ -39,7 +37,7 @@ export default class DatePicker extends Component {
     });
   }
 
-  onDatesChange({ startDate, endDate }) {
+  onDatesChange = ({ startDate, endDate }) => {
     this.setState({ startDate, endDate }, () => {
       if (startDate && endDate){
         const nowe1 = this.state.startDate._d.getFullYear();
@@ -76,10 +74,9 @@ export default class DatePicker extends Component {
     });
   }
 
-  onFocusChange(focusedInput) {
-    this.setState({ focusedInput }, () => {
-    });
-  }
+onFocusChange = (focusedInput) => {
+  this.setState({ focusedInput });
+}
 
   render() {
     return (
