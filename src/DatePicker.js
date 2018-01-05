@@ -1,22 +1,23 @@
 import 'react-dates/initialize';
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import { DateRangePicker} from 'react-dates';
 import './style/App.css';
-import moment from 'moment';
 
+import ThemedStyleSheet from 'react-with-styles/lib/ThemedStyleSheet';
+import DefaultTheme from 'react-dates/lib/theme/DefaultTheme';
 
+import 'react-dates/lib/css/_datepicker.css';
+
+ThemedStyleSheet.registerTheme(DefaultTheme);
 
 export default class DatePicker extends Component {
-  constructor(props) {
-    super(props);
-    var SelectedStartDate = moment('2017-05-05');
-    var SelectedEndDate = moment('2017-05-09');
+  constructor() {
+    super();
     this.state = {
       text: '',
       focusedInput: null,
-      startDate: SelectedStartDate,
-      endDate:SelectedEndDate
+      startDate: null,
+      endDate: null
     };
     this.onDatesChange = this.onDatesChange.bind(this);
     this.onFocusChange = this.onFocusChange.bind(this);
@@ -38,8 +39,10 @@ export default class DatePicker extends Component {
   }
 
   onDatesChange({ startDate, endDate }) {
-
-    this.setState({ startDate, endDate });
+    this.setState({ startDate, endDate }, () => {
+      console.log(startDate);
+      console.log(endDate);
+    });
   }
 
   onFocusChange(focusedInput) {
@@ -47,25 +50,20 @@ export default class DatePicker extends Component {
   }
 
   render() {
-    const { focusedInput, startDate, endDate } = this.state;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome tadssadassado React</h1>
-        </header>
-
+      <div >
         <DateRangePicker
           onDatesChange={this.onDatesChange}
           onFocusChange={this.onFocusChange}
-          focusedInput={focusedInput}
-          //Here is the change:
-          date={startDate}
-          startDate={startDate}
-          endDate={endDate}
+          focusedInput={this.state.focusedInput}
+          date={this.state.startDate}
+          startDate={this.state.startDate}
+          endDate={this.state.endDate}
         />
 
-        {this.state.text}
+        <p>
+          {this.state.text}
+        </p>
       </div>
     );
   }
