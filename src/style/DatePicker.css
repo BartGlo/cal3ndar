@@ -3,6 +3,17 @@
   text-align: center;
 
 }
+
+.DatePicker-instructions {
+  display: inline-block;
+  width: 75%;
+  font-size: 1.2em;
+}
+
+.DateRangePickerInput_arrow {
+  width: 50px;
+}
+
 .DatePicker-info {
   width: 75%;
   margin-top: 10px;
@@ -11,8 +22,4 @@
   border: 2px solid white;
   background-color: #B1F6CB;
   border-radius: 10px;
-}
-
-.DateRangePickerInput_arrow {
-  width: 50px;
 }

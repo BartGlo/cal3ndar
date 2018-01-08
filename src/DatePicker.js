@@ -18,10 +18,9 @@ export default class DatePicker extends Component {
       isStartLeap: '',
       isEndLeap: ''
     };
-
   };
 
-  fetchAPIData = () => {
+  getFactAboutDay = () => {
     const url = 'http://numbersapi.com/';
     const month = `${this.state.startMonth}/`;
     const day = `${this.state.startDay}/`;
@@ -52,18 +51,13 @@ export default class DatePicker extends Component {
 
         this.calculateDaysBetweenDates(this.state.startDate, this.state.endDate);
         this.areDatesPartOfLeapYear(this.state.startDate, this.state.endDate);
-
         this.setState({
           startDay: startDay,
           startMonth: startMonth,
-        }, () => this.fetchAPIData())
+        }, () => this.getFactAboutDay())
       };
     });
   };
-
-  clearFields = () => {
-    console.log('lol');
-  }
 
   onFocusChange = (focusedInput) => {
     this.setState({ focusedInput });
@@ -115,6 +109,11 @@ export default class DatePicker extends Component {
     return (
       <div className={'DatePicker-content'}>
         <div className={'DatePicker-calendar'}>
+          <div className={'DatePicker-instructions'}>
+            <p>You can enter dates either by typing in dates in format <b>'DD/MM/YYYY'</b> (please provide slashes - / ) or
+            by using provided calendar that opens automatically after clicking on the input field.</p>
+          </div>
+          <br/>
           <DateRangePicker
             onDatesChange={this.onDatesChange}
             onFocusChange={this.onFocusChange}
