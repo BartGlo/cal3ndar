@@ -114,6 +114,7 @@ export default class DatePicker extends Component {
             firstDayOfWeek= {1}
             displayFormat = {'DD/MM/YYYY'}
             isOutsideRange={() => false}
+            numberOfMonths= {1}
           />
         </div>
         {this.displayInfo()}
