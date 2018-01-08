@@ -11,3 +11,7 @@
   background-color: #B1F6CB;
   border-radius: 10px;
 }
+
+.DateRangePickerInput_arrow {
+  width: 50px;
+}
