@@ -18,17 +18,21 @@ export default class DatePicker extends Component {
       text: '',
       focusedInput: null,
       startDate: moment(),
-      endDate: moment()
+      endDate: moment(),
+      daysBetweenDates: '',
+      isStartLeap: '',
+      isEndLeap: ''
     };
 
   }
-  fetchAPIData() {
+  fetchAPIData = () => {
     const url = 'http://numbersapi.com/';
     const month = `${this.state.startMonth}/`;
     const day = `${this.state.startDay}/`;
     const dataType = 'date?json';
     const path = url+month+day+dataType;
 
+    console.log(this.state);
     fetch(path)
     .then(data => {
       return data.json();
@@ -40,35 +44,40 @@ export default class DatePicker extends Component {
   onDatesChange = ({ startDate, endDate }) => {
     this.setState({ startDate, endDate }, () => {
       if (startDate && endDate){
-        const nowe1 = this.state.startDate._d.getFullYear();
-        const nowe2 = this.state.startDate._d.getDate();
-        const nowe3 = this.state.startDate._d.getMonth()+1;
-        console.log('START full year', nowe1);
-        console.log('START date day', nowe2);
-        console.log('START month', nowe3);
-        const nowe4 = this.state.endDate._d.getFullYear();
-        const nowe5 = this.state.endDate._d.getDate();
-        const nowe6 = this.state.endDate._d.getMonth()+1;
-        console.log('END full year', nowe4);
-        console.log('END date day', nowe5);
-        console.log('END month', nowe6);
+        const startYear = this.state.startDate._d.getFullYear();
+        const startDay = this.state.startDate._d.getDate();
+        const startMonth = this.state.startDate._d.getMonth()+1;
+        console.log('START full year', startYear);
+        console.log('START date day', startDay);
+        console.log('START month', startMonth);
+        const endYear = this.state.endDate._d.getFullYear();
+        const endDay = this.state.endDate._d.getDate();
+        const endMonth = this.state.endDate._d.getMonth()+1;
+        console.log('END full year', endYear);
+        console.log('END date day', endDay);
+        console.log('END month', endMonth);
         //Number of days between the date range
         const a = this.state.startDate;
         const b = this.state.endDate;
-        const equalss = b.diff(a, 'days');
-        console.log('equals', equalss);
+        const daysBetweenDates = b.diff(a, 'days');
+        console.log('equals', daysBetweenDates);
         //--------------------------------
         //Leap year
         console.log('is start date a leap year?', a.isLeapYear());
+        const isStartLeap = a.isLeapYear();
         console.log('is end date a leap year?', b.isLeapYear());
+        const isEndLeap = b.isLeapYear();
         //---------------------------------
         this.setState({
-          startDay: nowe2,
-          startMonth: nowe3,
-          startYear: nowe1,
-          endDay: nowe5,
-          endMonth: nowe6,
-          endYear: nowe4
+          startDay: startDay,
+          startMonth: startMonth,
+          startYear: startYear,
+          endDay: endDay,
+          endMonth: endMonth,
+          endYear: endYear,
+          daysBetweenDates: daysBetweenDates,
+          isStartLeap: isStartLeap,
+          isEndLeap: isEndLeap
         }, () => this.fetchAPIData())
       }
     });
@@ -78,14 +87,23 @@ onFocusChange = (focusedInput) => {
   this.setState({ focusedInput });
 }
 
-  render() {
-    return (
-      <div >
+areDatesPartOfLeapYear = () => {
+
+}
+
+
+render() {
+  return (
+    <div >
+      <div>
         <DateRangePicker
           onDatesChange={this.onDatesChange}
           onFocusChange={this.onFocusChange}
           focusedInput={this.state.focusedInput}
-          date={this.state.startDate}
+          startDateId= {'startDate'}
+          startDatePlaceholderText= {'DD/MM/YYYY'}
+          endDateId= {'endDate'}
+          endDatePlaceholderText={'DD/MM/YYYY'}
           startDate={this.state.startDate}
           endDate={this.state.endDate}
           noBorder= {true}
@@ -93,9 +111,16 @@ onFocusChange = (focusedInput) => {
           displayFormat = {'DD/MM/YYYY'}
           isOutsideRange={() => false} //choose any date
         />
-
-        <p>{this.state.text}</p>
       </div>
-    );
+      <div>
+        <p>Number of days between selected dates: {this.state.daysBetweenDates}</p>
+        <p>Is the start date a leap year: {this.state.isStartLeap.toString()}</p>
+        <p>Is the end date a leap year: {this.state.isEndLeap.toString()}</p>
+      </div>
+      <div>
+        <p>Random fact: {this.state.text}</p>
+      </div>
+    </div>
+  );
   }
 }
