@@ -36,6 +36,11 @@ export default class DatePicker extends Component {
         text: sentence.text,
         displayData: true
       });
+    }).catch(error => {
+      this.setState({
+        text: 'An unexpected error occured, try again',
+        displayData: true
+      })
     });
   };
 
@@ -89,7 +94,7 @@ export default class DatePicker extends Component {
             ) : (
               <p>Start date <b>IS NOT a part of a leap year.</b></p>
             )  }
-            
+
             {this.state.isEndLeap ? (
               <p>End date <b>IS a part of a leap year.</b></p>
             ) : (
