@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'react-dates/initialize';
 import { DateRangePicker} from 'react-dates';
 import moment from 'moment';
-import './style/App.css';
+import './style/DatePicker.css';
 import ThemedStyleSheet from 'react-with-styles/lib/ThemedStyleSheet';
 import DefaultTheme from 'react-dates/lib/theme/DefaultTheme';
 import 'react-dates/lib/css/_datepicker.css';
@@ -80,11 +80,11 @@ export default class DatePicker extends Component {
   displayInfo = () => {
     if(this.state.displayData){
       return (
-        <div>
+        <div className={'info'}>
           <div>
-            <p>Number of days between selected dates: {this.state.daysBetweenDates}</p>
-            <p>Is the start date a leap year: {this.state.isStartLeap.toString()}</p>
-            <p>Is the end date a leap year: {this.state.isEndLeap.toString()}</p>
+            <p>Number of days between selected dates: <b>{this.state.daysBetweenDates}</b></p>
+            <p>Is the start date a leap year: <b>{this.state.isStartLeap.toString()}</b></p>
+            <p>Is the end date a leap year: <b>{this.state.isEndLeap.toString()}</b></p>
           </div>
           <div>
             <p>Random fact: {this.state.text}</p>
@@ -98,8 +98,8 @@ export default class DatePicker extends Component {
 
   render() {
     return (
-      <div >
-        <div>
+      <div className={'content'}>
+        <div className={'calendar'}>
           <DateRangePicker
             onDatesChange={this.onDatesChange}
             onFocusChange={this.onFocusChange}
@@ -110,10 +110,11 @@ export default class DatePicker extends Component {
             endDatePlaceholderText={'DD/MM/YYYY'}
             startDate={this.state.startDate}
             endDate={this.state.endDate}
-            noBorder= {true}
+            noBorder= {false}
             firstDayOfWeek= {1}
             displayFormat = {'DD/MM/YYYY'}
             isOutsideRange={() => false}
+            autocomplete={'on'}
           />
         </div>
         {this.displayInfo()}
