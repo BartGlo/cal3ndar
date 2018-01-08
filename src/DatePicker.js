@@ -35,7 +35,10 @@ export default class DatePicker extends Component {
     .then(data => {
       return data.json();
     }).then(sentence => {
-      this.setState({text: sentence.text});
+      this.setState({
+        text: sentence.text,
+        displayData: true
+      });
     });
   };
 
@@ -60,7 +63,6 @@ export default class DatePicker extends Component {
     this.setState({ focusedInput });
   };
 
-
   calculateDaysBetweenDates = (startDate, endDate) => {
     const daysBetweenDates = endDate.diff(startDate, 'days');
     this.setState({daysBetweenDates});
@@ -76,9 +78,23 @@ export default class DatePicker extends Component {
   };
 
   displayInfo = () => {
-
-  }
-
+    if(this.state.displayData){
+      return (
+        <div>
+          <div>
+            <p>Number of days between selected dates: {this.state.daysBetweenDates}</p>
+            <p>Is the start date a leap year: {this.state.isStartLeap.toString()}</p>
+            <p>Is the end date a leap year: {this.state.isEndLeap.toString()}</p>
+          </div>
+          <div>
+            <p>Random fact: {this.state.text}</p>
+          </div>
+        </div>
+      )
+    } else {
+      return '';
+    }
+  };
 
   render() {
     return (
@@ -100,14 +116,7 @@ export default class DatePicker extends Component {
             isOutsideRange={() => false}
           />
         </div>
-        <div>
-          <p>Number of days between selected dates: {this.state.daysBetweenDates}</p>
-          <p>Is the start date a leap year: {this.state.isStartLeap.toString()}</p>
-          <p>Is the end date a leap year: {this.state.isEndLeap.toString()}</p>
-        </div>
-        <div>
-          <p>Random fact: {this.state.text}</p>
-        </div>
+        {this.displayInfo()}
       </div>
     );
   }
