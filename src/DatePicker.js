@@ -80,14 +80,14 @@ export default class DatePicker extends Component {
   displayInfo = () => {
     if(this.state.displayData){
       return (
-        <div className={'info'}>
+        <div className={'DatePicker-info'}>
           <div>
             <p>Number of days between selected dates: <b>{this.state.daysBetweenDates}</b></p>
             <p>Is the start date a leap year: <b>{this.state.isStartLeap.toString()}</b></p>
             <p>Is the end date a leap year: <b>{this.state.isEndLeap.toString()}</b></p>
           </div>
           <div>
-            <p>Random fact: {this.state.text}</p>
+            <p>Random fact: <b>{this.state.text}</b></p>
           </div>
         </div>
       )
@@ -98,8 +98,8 @@ export default class DatePicker extends Component {
 
   render() {
     return (
-      <div className={'content'}>
-        <div className={'calendar'}>
+      <div className={'DatePicker-content'}>
+        <div className={'DatePicker-calendar'}>
           <DateRangePicker
             onDatesChange={this.onDatesChange}
             onFocusChange={this.onFocusChange}
@@ -114,7 +114,6 @@ export default class DatePicker extends Component {
             firstDayOfWeek= {1}
             displayFormat = {'DD/MM/YYYY'}
             isOutsideRange={() => false}
-            autocomplete={'on'}
           />
         </div>
         {this.displayInfo()}

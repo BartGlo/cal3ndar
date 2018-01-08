@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import DatePicker from './DatePicker';
 import Header from './Header';
 import Footer from './Footer';
-// import './style/App.css';
 
 export default class App extends Component {
   render() {

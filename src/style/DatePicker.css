@@ -1,15 +1,9 @@
-.content {
+.DatePicker-content {
   padding: 30px;
   text-align: center;
 
 }
-.date {
-  display: inline-block;
-  padding: 50px;
-  border: 10px solid black;
-
-}
-.info {
+.DatePicker-info {
   width: 75%;
   margin-top: 10px;
   display: inline-block;
