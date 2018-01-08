@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import 'react-dates/initialize';
 import { DateRangePicker} from 'react-dates';
-import moment from 'moment';
 import './style/DatePicker.css';
 import ThemedStyleSheet from 'react-with-styles/lib/ThemedStyleSheet';
 import DefaultTheme from 'react-dates/lib/theme/DefaultTheme';
@@ -15,8 +14,6 @@ export default class DatePicker extends Component {
     this.state = {
       text: '',
       focusedInput: null,
-      startDate: moment(),
-      endDate: moment(),
       daysBetweenDates: '',
       isStartLeap: '',
       isEndLeap: ''
@@ -59,6 +56,10 @@ export default class DatePicker extends Component {
     });
   };
 
+  clearFields = () => {
+    console.log('lol');
+  }
+
   onFocusChange = (focusedInput) => {
     this.setState({ focusedInput });
   };
@@ -83,8 +84,17 @@ export default class DatePicker extends Component {
         <div className={'DatePicker-info'}>
           <div>
             <p>Number of days between selected dates: <b>{this.state.daysBetweenDates}</b></p>
-            <p>Is the start date a leap year: <b>{this.state.isStartLeap.toString()}</b></p>
-            <p>Is the end date a leap year: <b>{this.state.isEndLeap.toString()}</b></p>
+            {this.state.isStartLeap ? (
+              <p>Start date <b>IS a part of a leap year.</b></p>
+            ) : (
+              <p>Start date <b>IS NOT a part of a leap year.</b></p>
+            )  }
+            
+            {this.state.isEndLeap ? (
+              <p>End date <b>IS a part of a leap year.</b></p>
+            ) : (
+              <p>End date <b>IS NOT a part of a leap year.</b></p>
+            )  }
           </div>
           <div>
             <p>Random fact: <b>{this.state.text}</b></p>
